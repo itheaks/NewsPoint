@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Search</title>
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Additional custom styles */
+        .card {
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+<div class="container mx-auto py-8">
+    <!-- Search bar -->
+    <div class="mb-4 flex justify-between items-center">
+        <input type="text" id="searchInput" placeholder="Search..." class="form-control flex-1 mr-2">
+        <button onclick="searchArticles()" class="btn btn-primary">Search</button>
+    </div>
+
+    <!-- Container for displaying cards -->
+    <div id="articleContainer" class="grid grid-cols-1 gap-4"></div>
+</div>
+
+<script>
+    // JSON data
+    var articles = [{
+        "_id": {
+            "$oid": "65d0765590554b81bef0b166"
+        },
+        "link": "https://www.huffpost.com/entry/covid-boosters-uptake-us_n_632d719ee4b087fae6feaac9",
+        "headline": "Over 4 Million Americans Roll Up Sleeves For Omicron-Targeted COVID Boosters",
+        "category": "U.S. NEWS",
+        "short_description": "Health experts said it is too early to predict whether demand would match up with the 171 million doses of the new boosters the U.S. ordered for the fall.",
+        "authors": "Carla K. Johnson, AP",
+        "date": "2022-09-23"
+    },
+    {
+        "_id": {
+            "$oid": "65d0765590554b81bef0b167"
+        },
+        "link": "https://www.huffpost.com/entry/american-airlines-passenger-banned-flight-attendant-punch-justice-department_n_632e25d3e4b0e247890329fe",
+        "headline": "American Airlines Flyer Charged, Banned For Life After Punching Flight Attendant On Video",
+        "category": "U.S. NEWS",
+        "short_description": "He was subdued by passengers and crew when he fled to the back of the aircraft after the confrontation, according to the U.S. attorney's office in Los Angeles.",
+        "authors": "Mary Papenfuss",
+        "date": "2022-09-23"
+    },
+    {
+        "_id": {
+            "$oid": "65d0765590554b81bef0b168"
+        },
+        "link": "https://www.huffpost.com/entry/funniest-tweets-cats-dogs-september-17-23_n_632de332e4b0695c1d81dc02",
+        "headline": "23 Of The Funniest Tweets About Cats And Dogs This Week (Sept. 17-23)",
+        "category": "COMEDY",
+        "short_description": "\"Until you have a dog you don't understand what could be eaten.\"",
+        "authors": "Elyse Wanshel",
+        "date": "2022-09-23"
+    },
+    {
+        "_id": {
+            "$oid": "65d0765590554b81bef0b169"
+        },
+        "link": "https://www.huffpost.com/entry/funniest-parenting-tweets_l_632d7d15e4b0d12b5403e479",
+        "headline": "The Funniest Tweets From Parents This Week (Sept. 17-23)",
+        "category": "PARENTING",
+        "short_description": "\"Accidentally put grown-up toothpaste on my toddler’s toothbrush and he screamed like I was cleaning his teeth with a Carolina Reaper dipped in Tabasco sauce.\"",
+        "authors": "Caroline Bologna",
+        "date": "2022-09-23"
+    }];
+
+    // Function to display articles
+    function displayArticles(articles) {
+        var container = document.getElementById("articleContainer");
+        container.innerHTML = ""; // Clear previous content
+
+        articles.forEach(function(article) {
+            var card = document.createElement("div");
+            card.className = "card p-4 bg-white shadow";
+
+            var title = document.createElement("h2");
+            title.textContent = article.headline;
+            title.className = "text-lg font-semibold mb-2";
+            card.appendChild(title);
+
+            var category = document.createElement("p");
+            category.textContent = "Category: " + article.category;
+            category.className = "text-gray-700";
+            card.appendChild(category);
+
+            var link = document.createElement("a");
+            link.href = article.link;
+            link.textContent = "Read More";
+            link.className = "block text-blue-500 mt-2";
+            card.appendChild(link);
+
+            var shortDescription = document.createElement("p");
+            shortDescription.textContent = article.short_description;
+            shortDescription.className = "text-gray-700";
+            card.appendChild(shortDescription);
+
+            var authors = document.createElement("p");
+            authors.textContent = "Authors: " + article.authors;
+            authors.className = "text-gray-700";
+            card.appendChild(authors);
+
+            var date = document.createElement("p");
+            date.textContent = "Date: " + article.date;
+            date.className = "text-gray-700";
+            card.appendChild(date);
+
+            container.appendChild(card);
+        });
+    }
+
+    // Function to search articles
+    function searchArticles() {
+        var searchInput = document.getElementById("searchInput").value.toLowerCase();
+        var filteredArticles = articles.filter(function(article) {
+            return article.headline.toLowerCase().includes(searchInput) ||
+                article.category.toLowerCase().includes(searchInput) ||
+                article.short_description.toLowerCase().includes(searchInput) ||
+                article.authors.toLowerCase().includes(searchInput) ||
+                article.date.includes(searchInput);
+        });
+        displayArticles(filteredArticles);
+    }
+
+    // Display all articles initially
+    displayArticles(articles);
+</script>
+
+</body>
+</html>

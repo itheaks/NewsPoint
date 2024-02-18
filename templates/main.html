@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NewsPoint</title>
+  <style>
+    /* Additional Custom Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      font-size: 60px;
+      animation: slideDown 1s ease-in-out;
+    }
+    @keyframes slideDown {
+      0% {transform: translateY(-100%);}
+      100% {transform: translateY(0);}
+    }
+    .carousel {
+      position: relative;
+      width: 100%;
+      margin-top: 20px;
+    }
+    .carousel-inner {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .carousel-item {
+      flex: 0 0 auto;
+      padding: 10%;
+      width: 80%;
+      scroll-snap-align: start;
+      align-items: center;
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+    .card:hover {
+      transform: scale(0.95);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }
+    .card a {
+      text-decoration: none;
+      color: #333;
+      font-size: 28px;
+    }
+    .carousel-control-prev, .carousel-control-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 2.5rem;
+      color: #333;
+      z-index: 1;
+    }
+    .carousel-control-prev {
+      left: 20px;
+    }
+    .carousel-control-next {
+      right: 20px;
+    }
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+      background-color: transparent;
+      background-size: cover;
+      height: 40px;
+      width: 40px;
+    }
+    .carousel-control-prev-icon:before {
+      content: '❮';
+    }
+    .carousel-control-next-icon:before {
+      content: '❯';
+    }
+  </style>
+</head>
+<body>
+  <header>
+    NewsPoint
+  </header>
+  <div class="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item">
+        <div class="card">
+          <div class="card-body">
+            <a href="{% url 'news1' %}">Datasets 1</a>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="card">
+          <div class="card-body">
+            <a href="{% url 'news2' %}">Datasets 2</a>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="card">
+          <div class="card-body">
+            <a href="{% url 'link' %}">Link Analysis</a>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="card">
+          <div class="card-body">
+            <a href="{% url 'prompt' %}">Prompt King</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" aria-label="Previous">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </button>
+    <button class="carousel-control-next" aria-label="Next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </button>
+  </div>
+</body>
+</html>

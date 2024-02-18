@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Search</title>
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Additional custom styles */
+        .card {
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+<div class="container mx-auto py-8">
+    <!-- Search bar -->
+    <div class="mb-4 flex justify-between items-center">
+        <input type="text" id="searchInput" placeholder="Search..." class="form-control flex-1 mr-2">
+        <button onclick="searchArticles()" class="btn btn-primary">Search</button>
+    </div>
+
+    <!-- Container for displaying cards -->
+    <div id="articleContainer" class="grid grid-cols-1 gap-4"></div>
+</div>
+
+<script>
+    // JSON data
+    var articles = [{
+        "_id": {
+            "$oid": "65d0796190554b81bef58cc5"
+        },
+        "topic": "SCIENCE",
+        "link": "https://www.eurekalert.org/pub_releases/2020-08/dbnl-acl080620.php",
+        "domain": "eurekalert.org",
+        "published_date": "2020-08-06 13:59:45",
+        "title": "A closer look at water-splitting's solar fuel potential",
+        "lang": "en"
+    },
+    {
+        "_id": {
+            "$oid": "65d0796190554b81bef58cc6"
+        },
+        "topic": "SCIENCE",
+        "link": "https://www.pulse.ng/news/world/an-irresistible-scent-makes-locusts-swarm-study-finds/jy784jw",
+        "domain": "pulse.ng",
+        "published_date": "2020-08-12 15:14:19",
+        "title": "An irresistible scent makes locusts swarm, study finds",
+        "lang": "en"
+    },
+    {
+        "_id": {
+            "$oid": "65d0796190554b81bef58cc7"
+        },
+        "topic": "SCIENCE",
+        "link": "https://www.express.co.uk/news/science/1322607/artificial-intelligence-warning-machine-learning-algorithm-social-media-data",
+        "domain": "express.co.uk",
+        "published_date": "2020-08-13 21:01:00",
+        "title": "Artificial intelligence warning: AI will know us better than we know ourselves",
+        "lang": "en"
+    },
+    {
+        "_id": {
+            "$oid": "65d0796190554b81bef58cc8"
+        },
+        "topic": "SCIENCE",
+        "link": "https://www.ndtv.com/world-news/glaciers-could-have-sculpted-mars-valleys-study-2273648",
+        "domain": "ndtv.com",
+        "published_date": "2020-08-03 22:18:26",
+        "title": "Glaciers Could Have Sculpted Mars Valleys: Study",
+        "lang": "en"
+    }];
+
+    // Function to display articles
+    function displayArticles(articles) {
+        var container = document.getElementById("articleContainer");
+        container.innerHTML = ""; // Clear previous content
+
+        articles.forEach(function(article) {
+            var card = document.createElement("div");
+            card.className = "card p-4 bg-white shadow";
+
+            var title = document.createElement("h2");
+            title.textContent = article.title;
+            title.className = "text-lg font-semibold mb-2";
+            card.appendChild(title);
+
+            var topic = document.createElement("p");
+            topic.textContent = "Topic: " + article.topic;
+            topic.className = "text-gray-700";
+            card.appendChild(topic);
+
+            var link = document.createElement("a");
+            link.href = article.link;
+            link.textContent = "Read More";
+            link.className = "block text-blue-500 mt-2";
+            card.appendChild(link);
+
+            var domain = document.createElement("p");
+            domain.textContent = "Domain: " + article.domain;
+            domain.className = "text-gray-700";
+            card.appendChild(domain);
+
+            var publishedDate = document.createElement("p");
+            publishedDate.textContent = "Published Date: " + article.published_date;
+            publishedDate.className = "text-gray-700";
+            card.appendChild(publishedDate);
+
+            var lang = document.createElement("p");
+            lang.textContent = "Language: " + article.lang;
+            lang.className = "text-gray-700";
+            card.appendChild(lang);
+
+            container.appendChild(card);
+        });
+    }
+
+    // Function to search articles
+    function searchArticles() {
+        var searchInput = document.getElementById("searchInput").value.toLowerCase();
+        var filteredArticles = articles.filter(function(article) {
+            return article.title.toLowerCase().includes(searchInput) ||
+                article.topic.toLowerCase().includes(searchInput) ||
+                article.domain.toLowerCase().includes(searchInput) ||
+                article.published_date.includes(searchInput) ||
+                article.lang.toLowerCase().includes(searchInput);
+        });
+        displayArticles(filteredArticles);
+    }
+
+    // Display all articles initially
+    displayArticles(articles);
+</script>
+
+</body>
+</html>
